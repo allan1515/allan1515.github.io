@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Patient Data</title>
+</head>
+
+<body>
+  <ul id="request"></ul>
+
+  <script>
+    fetch('patient.json')
+      .then((resp) => resp.json())
+      .then((json) => {
+        var conditions = "";
+        for (var i = 0; i < json.conditions.length; i++) {
+          conditions += "- " + json.conditions[i] + "<br>";
+        }
+        var output =
+          "<article>Name of Patient: " + json.name[0].given + " " + json.name[0].family + "<br>" +
+          "Organization Name: " + json.managingOrganization.display + "<br>" +
+          "Gender: " + json.gender + "<br>" +
+          "Number of conditions they have: " + json.conditions.length + "<br>" +
+          "List of conditions: <br>" + conditions + "</article>";
+
+        document.getElementById("request").innerHTML = output;
+
+      });
+  </script>
+</body>
+
+</html>
